@@ -104,6 +104,14 @@ class TributeRange {
         targetElement.focus()
     }
 
+    /**
+     * 替换触发文本
+     * @param {*} text 
+     * @param {*} requireLeadingSpace 
+     * @param {*} hasTrailingSpace 
+     * @param {*} originalEvent 
+     * @param {*} item 
+     */
     replaceTriggerText(text, requireLeadingSpace, hasTrailingSpace, originalEvent, item) {
         let info = this.getTriggerInfo(true, hasTrailingSpace, requireLeadingSpace, this.tribute.allowSpaces, this.tribute.autocompleteMode)
 
@@ -135,6 +143,7 @@ class TributeRange {
                 myField.selectionEnd = startPos + text.length
             } else {
                 // add a space to the end of the pasted text
+                // 文本后端添加空格
                 let textSuffix = typeof this.tribute.replaceTextSuffix == 'string'
                     ? this.tribute.replaceTextSuffix
                     : '\xA0'
@@ -154,13 +163,16 @@ class TributeRange {
     pasteHtml(html, startPos, endPos) {
         let range, sel
         sel = this.getWindowSelection()
+        // 创建新选区，设置起始、结束位置；删除选区内容
         range = this.getDocument().createRange()
         range.setStart(sel.anchorNode, startPos)
         range.setEnd(sel.anchorNode, endPos)
         range.deleteContents()
 
+        // 创建一个div，设置innerHTML为html
         let el = this.getDocument().createElement('div')
         el.innerHTML = html
+        // 创建一个文档片段，用于存储html内容
         let frag = this.getDocument().createDocumentFragment(),
             node, lastNode
         while ((node = el.firstChild)) {
@@ -170,8 +182,11 @@ class TributeRange {
 
         // Preserve the selection
         if (lastNode) {
+            // 克隆选区
             range = range.cloneRange()
+            // 设置选区结束位置
             range.setStartAfter(lastNode)
+            // 折叠选区
             range.collapse(true)
             sel.removeAllRanges()
             sel.addRange(range)
@@ -202,6 +217,7 @@ class TributeRange {
 
     getContentEditableSelectedPath(ctx) {
         let sel = this.getWindowSelection()
+        // 当前选区所在的锚点节点
         let selected = sel.anchorNode
         let path = []
         let offset
@@ -209,7 +225,9 @@ class TributeRange {
         if (selected != null) {
             let i
             let ce = selected.contentEditable
+            // 递归向上，一直找到contentEditable为true的节点(父节点)
             while (selected !== null && ce !== 'true') {
+                // 获取当前节点在父节点中的位置
                 i = this.getNodePositionInParent(selected)
                 path.push(i)
                 selected = selected.parentNode
@@ -220,6 +238,7 @@ class TributeRange {
             path.reverse()
 
             // getRangeAt may not exist, need alternative
+            // 光标在当前选区的偏移量
             offset = sel.getRangeAt(0).startOffset
 
             return {
@@ -230,6 +249,10 @@ class TributeRange {
         }
     }
 
+    /**
+     * 获取当前光标位置之前的文本
+     * @returns 
+     */
     getTextPrecedingCurrentSelection() {
         let context = this.tribute.current,
             text = ''
@@ -270,6 +293,15 @@ class TributeRange {
         return wordsArray[wordsCount];
     }
 
+    /**
+     * 获取触发信息
+     * @param {*} menuAlreadyActive 菜单是否已经激活
+     * @param {*} hasTrailingSpace 是否有尾随空格
+     * @param {*} requireLeadingSpace 是否需要前导空格
+     * @param {*} allowSpaces 是否允许空格
+     * @param {*} isAutocomplete 是否自动补全
+     * @returns 
+     */
     getTriggerInfo(menuAlreadyActive, hasTrailingSpace, requireLeadingSpace, allowSpaces, isAutocomplete) {
         let ctx = this.tribute.current
         let selected, path, offset
@@ -348,6 +380,7 @@ class TributeRange {
                 if (!leadingSpace && (menuAlreadyActive || !(regex.test(currentTriggerSnippet)))) {
                     return {
                         mentionPosition: mostRecentTriggerCharPos,
+                        // 搜索文案
                         mentionText: currentTriggerSnippet,
                         mentionSelectedElement: selected,
                         mentionSelectedPath: path,
@@ -407,6 +440,10 @@ class TributeRange {
             left: menuLeft < Math.floor(windowLeft)
         }
     }
+    /**
+     * 计算菜单的尺寸（先渲染在页面，获取到元素的宽高，然后隐藏）
+     * @returns 
+     */
 
     getMenuDimensions() {
         // Width of the menu depends of its contents and position
@@ -524,20 +561,28 @@ class TributeRange {
         return this.getFixedCoordinatesRelativeToRect(rect);
     }
 
+    /**
+     * 获取菜单坐标位置
+     * @param {*} rect 
+     * @returns 
+     */
     getFixedCoordinatesRelativeToRect(rect) {
         let coordinates = {
             position: 'fixed',
             left: rect.left,
             top: rect.top + rect.height
         }
-
+        // 获取菜单的尺寸
         let menuDimensions = this.getMenuDimensions()
 
+        // 获取当前元素上下可用空间
         var availableSpaceOnTop = rect.top;
         var availableSpaceOnBottom = window.innerHeight - (rect.top + rect.height);
 
         //check to see where's the right place to put the menu vertically
+        // 下方空间不够渲染（就使用bottom定位）
         if (availableSpaceOnBottom < menuDimensions.height) {
+          // 上方空间足够渲染  || 上方空间大于下方空间
           if (availableSpaceOnTop >= menuDimensions.height || availableSpaceOnTop > availableSpaceOnBottom) {
             coordinates.top = 'auto';
             coordinates.bottom = window.innerHeight - rect.top;
@@ -545,12 +590,15 @@ class TributeRange {
               coordinates.maxHeight = availableSpaceOnTop;
             }
           } else {
+            // 上方空间不够渲染，并且上方空间小于下方空间；就采用top定位，渲染在元素下方
             if (availableSpaceOnTop < menuDimensions.height) {
+                // 最大高度不能超过下方空间
               coordinates.maxHeight = availableSpaceOnBottom;
             }
           }
         }
 
+        // 获取当前元素左右可用空间
         var availableSpaceOnLeft = rect.left;
         var availableSpaceOnRight = window.innerWidth - rect.left;
 

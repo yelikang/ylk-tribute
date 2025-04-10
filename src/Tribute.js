@@ -41,6 +41,7 @@ class Tribute {
     this.allowSpaces = allowSpaces;
     this.replaceTextSuffix = replaceTextSuffix;
     this.positionMenu = positionMenu;
+    // 是否有尾随空格
     this.hasTrailingSpace = false;
     this.spaceSelectsMatch = spaceSelectsMatch;
 
@@ -286,6 +287,7 @@ class Tribute {
 
     // create the menu if it doesn't exist.
     if (!this.menu) {
+      // 构建menu元素
       this.menu = this.createMenu(this.current.collection.containerClass);
       element.tributeMenu = this.menu;
       this.menuEvents.bind(this.menu);
@@ -370,7 +372,7 @@ class Tribute {
         fragment.appendChild(li);
       });
       ul.appendChild(fragment);
-
+      // 渲染菜单
       this.range.positionMenuAtCaret(scrollTo);
     };
 

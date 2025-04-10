@@ -81,7 +81,9 @@ class TributeEvents {
 
   click(instance, event) {
     let tribute = instance.tribute;
+    // 菜单点击事件
     if (tribute.menu && tribute.menu.contains(event.target)) {
+      // 如果点击的是菜单中的元素，就选中点击的选项
       let li = event.target;
       event.preventDefault();
       event.stopPropagation();
@@ -96,6 +98,7 @@ class TributeEvents {
 
       // TODO: should fire with externalTrigger and target is outside of menu
     } else if (tribute.current.element && !tribute.current.externalTrigger) {
+      // 如果点击的是菜单外的元素，就隐藏菜单
       tribute.current.externalTrigger = false;
       setTimeout(() => tribute.hideMenu());
     }
@@ -129,6 +132,7 @@ class TributeEvents {
         });
 
         if (typeof trigger !== "undefined") {
+          // 触发关键字，设置trigger
           instance.callbacks().triggerChar(event, this, trigger);
         }
       }
