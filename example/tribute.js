@@ -1,115 +1,133 @@
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.Tribute = factory());
 }(this, (function () { 'use strict';
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+  function _arrayLikeToArray(r, a) {
+    (null == a || a > r.length) && (a = r.length);
+    for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+    return n;
+  }
+  function _arrayWithHoles(r) {
+    if (Array.isArray(r)) return r;
+  }
+  function _classCallCheck(a, n) {
+    if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+  }
+  function _defineProperties(e, r) {
+    for (var t = 0; t < r.length; t++) {
+      var o = r[t];
+      o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
     }
   }
-
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, descriptor.key, descriptor);
-    }
+  function _createClass(e, r, t) {
+    return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+      writable: !1
+    }), e;
   }
-
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-  }
-
-  function _slicedToArray(arr, i) {
-    return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-  }
-
-  function _arrayWithHoles(arr) {
-    if (Array.isArray(arr)) return arr;
-  }
-
-  function _iterableToArrayLimit(arr, i) {
-    if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
+  function _iterableToArrayLimit(r, l) {
+    var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+    if (null != t) {
+      var e,
+        n,
+        i,
+        u,
+        a = [],
+        f = !0,
+        o = !1;
       try {
-        if (!_n && _i["return"] != null) _i["return"]();
+        if (i = (t = t.call(r)).next, 0 === l) {
+          if (Object(t) !== t) return;
+          f = !1;
+        } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+      } catch (r) {
+        o = !0, n = r;
       } finally {
-        if (_d) throw _e;
+        try {
+          if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+        } finally {
+          if (o) throw n;
+        }
       }
+      return a;
     }
-
-    return _arr;
   }
-
-  function _unsupportedIterableToArray(o, minLen) {
-    if (!o) return;
-    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-    var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(n);
-    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-  }
-
-  function _arrayLikeToArray(arr, len) {
-    if (len == null || len > arr.length) len = arr.length;
-
-    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-
   function _nonIterableRest() {
     throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
   }
-
-  if (!Array.prototype.find) {
-    Array.prototype.find = function (predicate) {
-      if (this === null) {
-        throw new TypeError('Array.prototype.find called on null or undefined');
-      }
-
-      if (typeof predicate !== 'function') {
-        throw new TypeError('predicate must be a function');
-      }
-
-      var list = Object(this);
-      var length = list.length >>> 0;
-      var thisArg = arguments[1];
-      var value;
-
-      for (var i = 0; i < length; i++) {
-        value = list[i];
-
-        if (predicate.call(thisArg, value, i, list)) {
-          return value;
-        }
-      }
-
-      return undefined;
-    };
+  function _slicedToArray(r, e) {
+    return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+  }
+  function _toPrimitive(t, r) {
+    if ("object" != typeof t || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+      var i = e.call(t, r || "default");
+      if ("object" != typeof i) return i;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r ? String : Number)(t);
+  }
+  function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == typeof i ? i : i + "";
+  }
+  function _unsupportedIterableToArray(r, a) {
+    if (r) {
+      if ("string" == typeof r) return _arrayLikeToArray(r, a);
+      var t = {}.toString.call(r).slice(8, -1);
+      return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+    }
   }
 
-  if (window && typeof window.CustomEvent !== "function") {
+  if (!Array.prototype.find) {
+    Object.defineProperty(Array.prototype, 'find', {
+      value: function value(predicate) {
+        // 1. Let O be ? ToObject(this value).
+        if (this == null) {
+          throw TypeError('"this" is null or not defined');
+        }
+        var o = Object(this);
+
+        // 2. Let len be ? ToLength(? Get(O, "length")).
+        var len = o.length >>> 0;
+
+        // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+        if (typeof predicate !== 'function') {
+          throw TypeError('predicate must be a function');
+        }
+
+        // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+        var thisArg = arguments[1];
+
+        // 5. Let k be 0.
+        var k = 0;
+
+        // 6. Repeat, while k < len
+        while (k < len) {
+          // a. Let Pk be ! ToString(k).
+          // b. Let kValue be ? Get(O, Pk).
+          // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+          // d. If testResult is true, return kValue.
+          var kValue = o[k];
+          if (predicate.call(thisArg, kValue, k, o)) {
+            return kValue;
+          }
+          // e. Increase k by 1.
+          k++;
+        }
+
+        // 7. Return undefined.
+        return undefined;
+      },
+      configurable: true,
+      writable: true
+    });
+  }
+  if (typeof window !== 'undefined' && typeof window.CustomEvent !== "function") {
     var CustomEvent$1 = function CustomEvent(event, params) {
       params = params || {
         bubbles: false,
@@ -120,38 +138,34 @@
       evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
       return evt;
     };
-
     if (typeof window.Event !== 'undefined') {
       CustomEvent$1.prototype = window.Event.prototype;
     }
-
     window.CustomEvent = CustomEvent$1;
   }
 
   var TributeEvents = /*#__PURE__*/function () {
     function TributeEvents(tribute) {
       _classCallCheck(this, TributeEvents);
-
       this.tribute = tribute;
       this.tribute.events = this;
     }
-
-    _createClass(TributeEvents, [{
+    return _createClass(TributeEvents, [{
       key: "bind",
       value: function bind(element) {
         element.boundKeydown = this.keydown.bind(element, this);
         element.boundKeyup = this.keyup.bind(element, this);
         element.boundInput = this.input.bind(element, this);
-        element.addEventListener("keydown", element.boundKeydown, false);
-        element.addEventListener("keyup", element.boundKeyup, false);
-        element.addEventListener("input", element.boundInput, false);
+        element.addEventListener("keydown", element.boundKeydown, true);
+        element.addEventListener("keyup", element.boundKeyup, true);
+        element.addEventListener("input", element.boundInput, true);
       }
     }, {
       key: "unbind",
       value: function unbind(element) {
-        element.removeEventListener("keydown", element.boundKeydown, false);
-        element.removeEventListener("keyup", element.boundKeyup, false);
-        element.removeEventListener("input", element.boundInput, false);
+        element.removeEventListener("keydown", element.boundKeydown, true);
+        element.removeEventListener("keyup", element.boundKeyup, true);
+        element.removeEventListener("input", element.boundInput, true);
         delete element.boundKeydown;
         delete element.boundKeyup;
         delete element.boundInput;
@@ -163,7 +177,6 @@
           instance.tribute.isActive = false;
           instance.tribute.hideMenu();
         }
-
         var element = this;
         instance.commandEvent = false;
         TributeEvents.keys().forEach(function (o) {
@@ -183,23 +196,24 @@
       key: "click",
       value: function click(instance, event) {
         var tribute = instance.tribute;
-
+        // 菜单点击事件
         if (tribute.menu && tribute.menu.contains(event.target)) {
+          // 如果点击的是菜单中的元素，就选中点击的选项
           var li = event.target;
           event.preventDefault();
           event.stopPropagation();
-
           while (li.nodeName.toLowerCase() !== "li") {
             li = li.parentNode;
-
             if (!li || li === tribute.menu) {
               throw new Error("cannot find the <li> container for the click");
             }
           }
-
           tribute.selectItemAtIndex(li.getAttribute("data-index"), event);
-          tribute.hideMenu(); // TODO: should fire with externalTrigger and target is outside of menu
+          tribute.hideMenu();
+
+          // TODO: should fire with externalTrigger and target is outside of menu
         } else if (tribute.current.element && !tribute.current.externalTrigger) {
+          // 如果点击的是菜单外的元素，就隐藏菜单
           tribute.current.externalTrigger = false;
           setTimeout(function () {
             return tribute.hideMenu();
@@ -212,17 +226,14 @@
         if (instance.inputEvent) {
           instance.inputEvent = false;
         }
-
         instance.updateSelection(this);
-        if (event.keyCode === 27) return;
-
+        if (!event.keyCode || event.keyCode === 27) return;
         if (!instance.tribute.allowSpaces && instance.tribute.hasTrailingSpace) {
           instance.tribute.hasTrailingSpace = false;
           instance.commandEvent = true;
           instance.callbacks()["space"](event, this);
           return;
         }
-
         if (!instance.tribute.isActive) {
           if (instance.tribute.autocompleteMode) {
             instance.callbacks().triggerChar(event, this, "");
@@ -232,17 +243,15 @@
             var trigger = instance.tribute.triggers().find(function (trigger) {
               return trigger.charCodeAt(0) === keyCode;
             });
-
             if (typeof trigger !== "undefined") {
+              // 触发关键字，设置trigger
               instance.callbacks().triggerChar(event, this, trigger);
             }
           }
         }
-
         if (instance.tribute.current.mentionText.length < instance.tribute.current.collection.menuShowMinLength) {
           return;
         }
-
         if ((instance.tribute.current.trigger || instance.tribute.autocompleteMode) && instance.commandEvent === false || instance.tribute.isActive && event.keyCode === 8) {
           instance.tribute.showMenuFor(this, true);
         }
@@ -251,7 +260,6 @@
       key: "shouldDeactivate",
       value: function shouldDeactivate(event) {
         if (!this.tribute.isActive) return false;
-
         if (this.tribute.current.mentionText.length === 0) {
           var eventKeyPressed = false;
           TributeEvents.keys().forEach(function (o) {
@@ -259,16 +267,13 @@
           });
           return !eventKeyPressed;
         }
-
         return false;
       }
     }, {
       key: "getKeyCode",
       value: function getKeyCode(instance, el, event) {
-
         var tribute = instance.tribute;
         var info = tribute.range.getTriggerInfo(false, tribute.hasTrailingSpace, true, tribute.allowSpaces, tribute.autocompleteMode);
-
         if (info) {
           return info.mentionTriggerChar.charCodeAt(0);
         } else {
@@ -280,7 +285,6 @@
       value: function updateSelection(el) {
         this.tribute.current.element = el;
         var info = this.tribute.range.getTriggerInfo(false, this.tribute.hasTrailingSpace, true, this.tribute.allowSpaces, this.tribute.autocompleteMode);
-
         if (info) {
           this.tribute.current.selectedPath = info.mentionSelectedPath;
           this.tribute.current.mentionText = info.mentionText;
@@ -291,7 +295,6 @@
       key: "callbacks",
       value: function callbacks() {
         var _this = this;
-
         return {
           triggerChar: function triggerChar(e, el, trigger) {
             var tribute = _this.tribute;
@@ -300,7 +303,6 @@
               return item.trigger === trigger;
             });
             tribute.current.collection = collectionItem;
-
             if (tribute.current.mentionText.length >= tribute.current.collection.menuShowMinLength && tribute.inputEvent) {
               tribute.showMenuFor(el, true);
             }
@@ -312,7 +314,6 @@
               e.stopPropagation();
               setTimeout(function () {
                 _this.tribute.selectItemAtIndex(_this.tribute.menuSelected, e);
-
                 _this.tribute.hideMenu();
               }, 0);
             }
@@ -322,7 +323,6 @@
               e.preventDefault();
               e.stopPropagation();
               _this.tribute.isActive = false;
-
               _this.tribute.hideMenu();
             }
           },
@@ -338,7 +338,6 @@
                 e.stopPropagation();
                 setTimeout(function () {
                   _this.tribute.hideMenu();
-
                   _this.tribute.isActive = false;
                 }, 0);
               }
@@ -350,17 +349,13 @@
               e.preventDefault();
               e.stopPropagation();
               var count = _this.tribute.current.filteredItems.length,
-                  selected = _this.tribute.menuSelected;
-
+                selected = _this.tribute.menuSelected;
               if (count > selected && selected > 0) {
                 _this.tribute.menuSelected--;
-
                 _this.setActiveLi();
               } else if (selected === 0) {
                 _this.tribute.menuSelected = count - 1;
-
                 _this.setActiveLi();
-
                 _this.tribute.menu.scrollTop = _this.tribute.menu.scrollHeight;
               }
             }
@@ -371,17 +366,13 @@
               e.preventDefault();
               e.stopPropagation();
               var count = _this.tribute.current.filteredItems.length - 1,
-                  selected = _this.tribute.menuSelected;
-
+                selected = _this.tribute.menuSelected;
               if (count > selected) {
                 _this.tribute.menuSelected++;
-
                 _this.setActiveLi();
               } else if (count === selected) {
                 _this.tribute.menuSelected = 0;
-
                 _this.setActiveLi();
-
                 _this.tribute.menu.scrollTop = 0;
               }
             }
@@ -399,23 +390,19 @@
       key: "setActiveLi",
       value: function setActiveLi(index) {
         var lis = this.tribute.menu.querySelectorAll("li"),
-            length = lis.length >>> 0;
+          length = lis.length >>> 0;
         if (index) this.tribute.menuSelected = parseInt(index);
-
         for (var i = 0; i < length; i++) {
           var li = lis[i];
-
           if (i === this.tribute.menuSelected) {
             li.classList.add(this.tribute.current.collection.selectClass);
             var liClientRect = li.getBoundingClientRect();
             var menuClientRect = this.tribute.menu.getBoundingClientRect();
-
             if (liClientRect.bottom > menuClientRect.bottom) {
               var scrollDistance = liClientRect.bottom - menuClientRect.bottom;
               this.tribute.menu.scrollTop += scrollDistance;
             } else if (liClientRect.top < menuClientRect.top) {
               var _scrollDistance = menuClientRect.top - liClientRect.top;
-
               this.tribute.menu.scrollTop -= _scrollDistance;
             }
           } else {
@@ -427,12 +414,10 @@
       key: "getFullHeight",
       value: function getFullHeight(elem, includeMargin) {
         var height = elem.getBoundingClientRect().height;
-
         if (includeMargin) {
           var style = elem.currentStyle || window.getComputedStyle(elem);
           return height + parseFloat(style.marginTop) + parseFloat(style.marginBottom);
         }
-
         return height;
       }
     }], [{
@@ -462,24 +447,19 @@
         }];
       }
     }]);
-
-    return TributeEvents;
   }();
 
   var TributeMenuEvents = /*#__PURE__*/function () {
     function TributeMenuEvents(tribute) {
       _classCallCheck(this, TributeMenuEvents);
-
       this.tribute = tribute;
       this.tribute.menuEvents = this;
       this.menu = this.tribute.menu;
     }
-
-    _createClass(TributeMenuEvents, [{
+    return _createClass(TributeMenuEvents, [{
       key: "bind",
       value: function bind(menu) {
         var _this = this;
-
         this.menuClickEvent = this.tribute.events.click.bind(null, this);
         this.menuContainerScrollEvent = this.debounce(function () {
           if (_this.tribute.isActive) {
@@ -490,12 +470,12 @@
           if (_this.tribute.isActive) {
             _this.tribute.hideMenu();
           }
-        }, 10, false); // fixes IE11 issues with mousedown
+        }, 10, false);
 
+        // fixes IE11 issues with mousedown
         this.tribute.range.getDocument().addEventListener("MSPointerDown", this.menuClickEvent, false);
         this.tribute.range.getDocument().addEventListener("mousedown", this.menuClickEvent, false);
         window.addEventListener("resize", this.windowResizeEvent);
-
         if (this.menuContainer) {
           this.menuContainer.addEventListener("scroll", this.menuContainerScrollEvent, false);
         } else {
@@ -508,7 +488,6 @@
         this.tribute.range.getDocument().removeEventListener("mousedown", this.menuClickEvent, false);
         this.tribute.range.getDocument().removeEventListener("MSPointerDown", this.menuClickEvent, false);
         window.removeEventListener("resize", this.windowResizeEvent);
-
         if (this.menuContainer) {
           this.menuContainer.removeEventListener("scroll", this.menuContainerScrollEvent, false);
         } else {
@@ -519,18 +498,15 @@
       key: "debounce",
       value: function debounce(func, wait, immediate) {
         var _arguments = arguments,
-            _this2 = this;
-
+          _this2 = this;
         var timeout;
         return function () {
           var context = _this2,
-              args = _arguments;
-
+            args = _arguments;
           var later = function later() {
             timeout = null;
             if (!immediate) func.apply(context, args);
           };
-
           var callNow = immediate && !timeout;
           clearTimeout(timeout);
           timeout = setTimeout(later, wait);
@@ -538,110 +514,103 @@
         };
       }
     }]);
-
-    return TributeMenuEvents;
   }();
 
   var TributeRange = /*#__PURE__*/function () {
     function TributeRange(tribute) {
       _classCallCheck(this, TributeRange);
-
       this.tribute = tribute;
       this.tribute.range = this;
     }
-
-    _createClass(TributeRange, [{
+    return _createClass(TributeRange, [{
       key: "getDocument",
       value: function getDocument() {
         var iframe;
-
         if (this.tribute.current.collection) {
           iframe = this.tribute.current.collection.iframe;
         }
-
         if (!iframe) {
           return document;
         }
-
         return iframe.contentWindow.document;
       }
     }, {
       key: "positionMenuAtCaret",
       value: function positionMenuAtCaret(scrollTo) {
         var context = this.tribute.current,
-            coordinates;
+          coordinates;
         var info = this.getTriggerInfo(false, this.tribute.hasTrailingSpace, true, this.tribute.allowSpaces, this.tribute.autocompleteMode);
-
         if (typeof info !== 'undefined') {
           if (!this.tribute.positionMenu) {
             this.tribute.menu.style.cssText = "display: block;";
             return;
           }
-
           if (!this.isContentEditable(context.element)) {
             coordinates = this.getTextAreaOrInputUnderlinePosition(this.tribute.current.element, info.mentionPosition);
           } else {
             coordinates = this.getContentEditableCaretPosition(info.mentionPosition);
           }
-
           this.tribute.menu.style.cssText = "top: ".concat(coordinates.top, "px;\n                                     left: ").concat(coordinates.left, "px;\n                                     right: ").concat(coordinates.right, "px;\n                                     bottom: ").concat(coordinates.bottom, "px;\n                                     max-height: ").concat(coordinates.maxHeight || 500, "px;\n                                     max-width: ").concat(coordinates.maxWidth || 300, "px;\n                                     position: ").concat(coordinates.position || 'absolute', ";\n                                     display: block;");
-
           if (coordinates.left === 'auto') {
             this.tribute.menu.style.left = 'auto';
           }
-
           if (coordinates.top === 'auto') {
             this.tribute.menu.style.top = 'auto';
           }
-
           if (scrollTo) this.scrollIntoView();
         } else {
           this.tribute.menu.style.cssText = 'display: none';
         }
       }
     }, {
+      key: "menuContainerIsBody",
+      get: function get() {
+        return this.tribute.menuContainer === document.body || !this.tribute.menuContainer;
+      }
+    }, {
       key: "selectElement",
       value: function selectElement(targetElement, path, offset) {
         var range;
         var elem = targetElement;
-
         if (path) {
           for (var i = 0; i < path.length; i++) {
             elem = elem.childNodes[path[i]];
-
             if (elem === undefined) {
               return;
             }
-
             while (elem.length < offset) {
               offset -= elem.length;
               elem = elem.nextSibling;
             }
-
             if (elem.childNodes.length === 0 && !elem.length) {
               elem = elem.previousSibling;
             }
           }
         }
-
         var sel = this.getWindowSelection();
         range = this.getDocument().createRange();
         range.setStart(elem, offset);
         range.setEnd(elem, offset);
         range.collapse(true);
-
         try {
           sel.removeAllRanges();
         } catch (error) {}
-
         sel.addRange(range);
         targetElement.focus();
       }
+
+      /**
+       * 替换触发文本
+       * @param {*} text 
+       * @param {*} requireLeadingSpace 
+       * @param {*} hasTrailingSpace 
+       * @param {*} originalEvent 
+       * @param {*} item 
+       */
     }, {
       key: "replaceTriggerText",
       value: function replaceTriggerText(text, requireLeadingSpace, hasTrailingSpace, originalEvent, item) {
         var info = this.getTriggerInfo(true, hasTrailingSpace, requireLeadingSpace, this.tribute.allowSpaces, this.tribute.autocompleteMode);
-
         if (info !== undefined) {
           var context = this.tribute.current;
           var replaceEvent = new CustomEvent('tribute-replaced', {
@@ -652,36 +621,29 @@
               event: originalEvent
             }
           });
-
           if (!this.isContentEditable(context.element)) {
             var myField = this.tribute.current.element;
             var textSuffix = typeof this.tribute.replaceTextSuffix == 'string' ? this.tribute.replaceTextSuffix : ' ';
             text += textSuffix;
             var startPos = info.mentionPosition;
-            var endPos = info.mentionPosition + info.mentionText.length + textSuffix.length;
-
+            var endPos = info.mentionPosition + info.mentionText.length + (textSuffix === '' ? 1 : textSuffix.length);
             if (!this.tribute.autocompleteMode) {
               endPos += info.mentionTriggerChar.length - 1;
             }
-
             myField.value = myField.value.substring(0, startPos) + text + myField.value.substring(endPos, myField.value.length);
             myField.selectionStart = startPos + text.length;
             myField.selectionEnd = startPos + text.length;
           } else {
             // add a space to the end of the pasted text
+            // 文本后端添加空格
             var _textSuffix = typeof this.tribute.replaceTextSuffix == 'string' ? this.tribute.replaceTextSuffix : '\xA0';
-
             text += _textSuffix;
-
             var _endPos = info.mentionPosition + info.mentionText.length;
-
             if (!this.tribute.autocompleteMode) {
               _endPos += info.mentionTriggerChar.length;
             }
-
             this.pasteHtml(text, info.mentionPosition, _endPos);
           }
-
           context.element.dispatchEvent(new CustomEvent('input', {
             bubbles: true
           }));
@@ -693,25 +655,31 @@
       value: function pasteHtml(html, startPos, endPos) {
         var range, sel;
         sel = this.getWindowSelection();
+        // 创建新选区，设置起始、结束位置；删除选区内容
         range = this.getDocument().createRange();
         range.setStart(sel.anchorNode, startPos);
         range.setEnd(sel.anchorNode, endPos);
         range.deleteContents();
+
+        // 创建一个div，设置innerHTML为html
         var el = this.getDocument().createElement('div');
         el.innerHTML = html;
+        // 创建一个文档片段，用于存储html内容
         var frag = this.getDocument().createDocumentFragment(),
-            node,
-            lastNode;
-
+          node,
+          lastNode;
         while (node = el.firstChild) {
           lastNode = frag.appendChild(node);
         }
+        range.insertNode(frag);
 
-        range.insertNode(frag); // Preserve the selection
-
+        // Preserve the selection
         if (lastNode) {
+          // 克隆选区
           range = range.cloneRange();
+          // 设置选区结束位置
           range.setStartAfter(lastNode);
+          // 折叠选区
           range.collapse(true);
           sel.removeAllRanges();
           sel.addRange(range);
@@ -723,7 +691,6 @@
         if (this.tribute.collection.iframe) {
           return this.tribute.collection.iframe.contentWindow.getSelection();
         }
-
         return window.getSelection();
       }
     }, {
@@ -732,10 +699,8 @@
         if (element.parentNode === null) {
           return 0;
         }
-
         for (var i = 0; i < element.parentNode.childNodes.length; i++) {
           var node = element.parentNode.childNodes[i];
-
           if (node === element) {
             return i;
           }
@@ -745,26 +710,27 @@
       key: "getContentEditableSelectedPath",
       value: function getContentEditableSelectedPath(ctx) {
         var sel = this.getWindowSelection();
+        // 当前选区所在的锚点节点
         var selected = sel.anchorNode;
         var path = [];
         var offset;
-
         if (selected != null) {
           var i;
           var ce = selected.contentEditable;
-
+          // 递归向上，一直找到contentEditable为true的节点(父节点)
           while (selected !== null && ce !== 'true') {
+            // 获取当前节点在父节点中的位置
             i = this.getNodePositionInParent(selected);
             path.push(i);
             selected = selected.parentNode;
-
             if (selected !== null) {
               ce = selected.contentEditable;
             }
           }
+          path.reverse();
 
-          path.reverse(); // getRangeAt may not exist, need alternative
-
+          // getRangeAt may not exist, need alternative
+          // 光标在当前选区的偏移量
           offset = sel.getRangeAt(0).startOffset;
           return {
             selected: selected,
@@ -773,76 +739,76 @@
           };
         }
       }
+
+      /**
+       * 获取当前光标位置之前的文本
+       * @returns 
+       */
     }, {
       key: "getTextPrecedingCurrentSelection",
       value: function getTextPrecedingCurrentSelection() {
         var context = this.tribute.current,
-            text = '';
-
+          text = '';
         if (!this.isContentEditable(context.element)) {
           var textComponent = this.tribute.current.element;
-
           if (textComponent) {
             var startPos = textComponent.selectionStart;
-
             if (textComponent.value && startPos >= 0) {
               text = textComponent.value.substring(0, startPos);
             }
           }
         } else {
           var selectedElem = this.getWindowSelection().anchorNode;
-
           if (selectedElem != null) {
             var workingNodeContent = selectedElem.textContent;
             var selectStartOffset = this.getWindowSelection().getRangeAt(0).startOffset;
-
             if (workingNodeContent && selectStartOffset >= 0) {
               text = workingNodeContent.substring(0, selectStartOffset);
             }
           }
         }
-
         return text;
       }
     }, {
       key: "getLastWordInText",
       value: function getLastWordInText(text) {
-        text = text.replace(/\u00A0/g, ' '); // https://stackoverflow.com/questions/29850407/how-do-i-replace-unicode-character-u00a0-with-a-space-in-javascript
-
         var wordsArray;
-
         if (this.tribute.autocompleteSeparator) {
           wordsArray = text.split(this.tribute.autocompleteSeparator);
         } else {
           wordsArray = text.split(/\s+/);
         }
-
-        var worldsCount = wordsArray.length - 1;
-        return wordsArray[worldsCount].trim();
+        var wordsCount = wordsArray.length - 1;
+        return wordsArray[wordsCount];
       }
+
+      /**
+       * 获取触发信息
+       * @param {*} menuAlreadyActive 菜单是否已经激活
+       * @param {*} hasTrailingSpace 是否有尾随空格
+       * @param {*} requireLeadingSpace 是否需要前导空格
+       * @param {*} allowSpaces 是否允许空格
+       * @param {*} isAutocomplete 是否自动补全
+       * @returns 
+       */
     }, {
       key: "getTriggerInfo",
       value: function getTriggerInfo(menuAlreadyActive, hasTrailingSpace, requireLeadingSpace, allowSpaces, isAutocomplete) {
         var _this = this;
-
         var ctx = this.tribute.current;
         var selected, path, offset;
-
         if (!this.isContentEditable(ctx.element)) {
           selected = this.tribute.current.element;
         } else {
           var selectionInfo = this.getContentEditableSelectedPath(ctx);
-
           if (selectionInfo) {
             selected = selectionInfo.selected;
             path = selectionInfo.path;
             offset = selectionInfo.offset;
           }
         }
-
         var effectiveRange = this.getTextPrecedingCurrentSelection();
         var lastWordOfEffectiveRange = this.getLastWordInText(effectiveRange);
-
         if (isAutocomplete) {
           return {
             mentionPosition: effectiveRange.length - lastWordOfEffectiveRange.length,
@@ -852,37 +818,32 @@
             mentionSelectedOffset: offset
           };
         }
-
         if (effectiveRange !== undefined && effectiveRange !== null) {
           var mostRecentTriggerCharPos = -1;
           var triggerChar;
           this.tribute.collection.forEach(function (config) {
             var c = config.trigger;
             var idx = config.requireLeadingSpace ? _this.lastIndexWithLeadingSpace(effectiveRange, c) : effectiveRange.lastIndexOf(c);
-
             if (idx > mostRecentTriggerCharPos) {
               mostRecentTriggerCharPos = idx;
               triggerChar = c;
               requireLeadingSpace = config.requireLeadingSpace;
             }
           });
-
-          if (mostRecentTriggerCharPos >= 0 && (mostRecentTriggerCharPos === 0 || !requireLeadingSpace || /[\xA0\s]/g.test(effectiveRange.substring(mostRecentTriggerCharPos - 1, mostRecentTriggerCharPos)))) {
+          if (mostRecentTriggerCharPos >= 0 && (mostRecentTriggerCharPos === 0 || !requireLeadingSpace || /\s/.test(effectiveRange.substring(mostRecentTriggerCharPos - 1, mostRecentTriggerCharPos)))) {
             var currentTriggerSnippet = effectiveRange.substring(mostRecentTriggerCharPos + triggerChar.length, effectiveRange.length);
             triggerChar = effectiveRange.substring(mostRecentTriggerCharPos, mostRecentTriggerCharPos + triggerChar.length);
             var firstSnippetChar = currentTriggerSnippet.substring(0, 1);
             var leadingSpace = currentTriggerSnippet.length > 0 && (firstSnippetChar === ' ' || firstSnippetChar === '\xA0');
-
             if (hasTrailingSpace) {
               currentTriggerSnippet = currentTriggerSnippet.trim();
             }
-
             var regex = allowSpaces ? /[^\S ]/g : /[\xA0\s]/g;
             this.tribute.hasTrailingSpace = regex.test(currentTriggerSnippet);
-
             if (!leadingSpace && (menuAlreadyActive || !regex.test(currentTriggerSnippet))) {
               return {
                 mentionPosition: mostRecentTriggerCharPos,
+                // 搜索文案
                 mentionText: currentTriggerSnippet,
                 mentionSelectedElement: selected,
                 mentionSelectedPath: path,
@@ -898,25 +859,21 @@
       value: function lastIndexWithLeadingSpace(str, trigger) {
         var reversedStr = str.split('').reverse().join('');
         var index = -1;
-
         for (var cidx = 0, len = str.length; cidx < len; cidx++) {
           var firstChar = cidx === str.length - 1;
           var leadingSpace = /\s/.test(reversedStr[cidx + 1]);
           var match = true;
-
           for (var triggerIdx = trigger.length - 1; triggerIdx >= 0; triggerIdx--) {
             if (trigger[triggerIdx] !== reversedStr[cidx - triggerIdx]) {
               match = false;
               break;
             }
           }
-
           if (match && (firstChar || leadingSpace)) {
             index = str.length - 1 - cidx;
             break;
           }
         }
-
         return index;
       }
     }, {
@@ -943,6 +900,10 @@
           left: menuLeft < Math.floor(windowLeft)
         };
       }
+      /**
+       * 计算菜单的尺寸（先渲染在页面，获取到元素的宽高，然后隐藏）
+       * @returns 
+       */
     }, {
       key: "getMenuDimensions",
       value: function getMenuDimensions() {
@@ -969,17 +930,18 @@
         var style = div.style;
         var computed = window.getComputedStyle ? getComputedStyle(element) : element.currentStyle;
         style.whiteSpace = 'pre-wrap';
-
         if (element.nodeName !== 'INPUT') {
           style.wordWrap = 'break-word';
         }
-
         style.position = 'absolute';
-        style.visibility = 'hidden'; // transfer the element's properties to the div
+        style.visibility = 'hidden';
 
+        // transfer the element's properties to the div
         properties.forEach(function (prop) {
           style[prop] = computed[prop];
-        }); //NOT SURE WHY THIS IS HERE AND IT DOESNT SEEM HELPFUL
+        });
+
+        //NOT SURE WHY THIS IS HERE AND IT DOESNT SEEM HELPFUL
         // if (isFirefox) {
         //     style.width = `${(parseInt(computed.width) - 2)}px`
         //     if (element.scrollHeight > parseInt(computed.height))
@@ -991,24 +953,24 @@
         var span0 = document.createElement('span');
         span0.textContent = element.value.substring(0, position);
         div.appendChild(span0);
-
         if (element.nodeName === 'INPUT') {
           div.textContent = div.textContent.replace(/\s/g, ' ');
-        } //Create a span in the div that represents where the cursor
+        }
+
+        //Create a span in the div that represents where the cursor
         //should be
-
-
-        var span = this.getDocument().createElement('span'); //we give it no content as this represents the cursor
-
+        var span = this.getDocument().createElement('span');
+        //we give it no content as this represents the cursor
         span.textContent = '&#x200B;';
         div.appendChild(span);
         var span2 = this.getDocument().createElement('span');
         span2.textContent = element.value.substring(position);
         div.appendChild(span2);
-        var rect = element.getBoundingClientRect(); //position the div exactly over the element
+        var rect = element.getBoundingClientRect();
+
+        //position the div exactly over the element
         //so we can get the bounding client rect for the span and
         //it should represent exactly where the cursor is
-
         div.style.position = 'fixed';
         div.style.left = rect.left + 'px';
         div.style.top = rect.top + 'px';
@@ -1031,6 +993,12 @@
         var rect = range.getBoundingClientRect();
         return this.getFixedCoordinatesRelativeToRect(rect);
       }
+
+      /**
+       * 获取菜单坐标位置
+       * @param {*} rect 
+       * @returns 
+       */
     }, {
       key: "getFixedCoordinatesRelativeToRect",
       value: function getFixedCoordinatesRelativeToRect(rect) {
@@ -1039,33 +1007,41 @@
           left: rect.left,
           top: rect.top + rect.height
         };
+        // 获取菜单的尺寸
         var menuDimensions = this.getMenuDimensions();
-        var availableSpaceOnTop = rect.top;
-        var availableSpaceOnBottom = window.innerHeight - (rect.top + rect.height); //check to see where's the right place to put the menu vertically
 
+        // 获取当前元素上下可用空间
+        var availableSpaceOnTop = rect.top;
+        var availableSpaceOnBottom = window.innerHeight - (rect.top + rect.height);
+
+        //check to see where's the right place to put the menu vertically
+        // 下方空间不够渲染（就使用bottom定位）
         if (availableSpaceOnBottom < menuDimensions.height) {
+          // 上方空间足够渲染  || 上方空间大于下方空间
           if (availableSpaceOnTop >= menuDimensions.height || availableSpaceOnTop > availableSpaceOnBottom) {
             coordinates.top = 'auto';
             coordinates.bottom = window.innerHeight - rect.top;
-
             if (availableSpaceOnBottom < menuDimensions.height) {
               coordinates.maxHeight = availableSpaceOnTop;
             }
           } else {
+            // 上方空间不够渲染，并且上方空间小于下方空间；就采用top定位，渲染在元素下方
             if (availableSpaceOnTop < menuDimensions.height) {
+              // 最大高度不能超过下方空间
               coordinates.maxHeight = availableSpaceOnBottom;
             }
           }
         }
 
+        // 获取当前元素左右可用空间
         var availableSpaceOnLeft = rect.left;
-        var availableSpaceOnRight = window.innerWidth - rect.left; //check to see where's the right place to put the menu horizontally
+        var availableSpaceOnRight = window.innerWidth - rect.left;
 
+        //check to see where's the right place to put the menu horizontally
         if (availableSpaceOnRight < menuDimensions.width) {
           if (availableSpaceOnLeft >= menuDimensions.width || availableSpaceOnLeft > availableSpaceOnRight) {
             coordinates.left = 'auto';
             coordinates.right = window.innerWidth - rect.left;
-
             if (availableSpaceOnRight < menuDimensions.width) {
               coordinates.maxWidth = availableSpaceOnLeft;
             }
@@ -1075,75 +1051,55 @@
             }
           }
         }
-
         return coordinates;
       }
     }, {
       key: "scrollIntoView",
       value: function scrollIntoView(elem) {
         var reasonableBuffer = 20,
-            clientRect;
+          clientRect;
         var maxScrollDisplacement = 100;
         var e = this.menu;
         if (typeof e === 'undefined') return;
-
         while (clientRect === undefined || clientRect.height === 0) {
           clientRect = e.getBoundingClientRect();
-
           if (clientRect.height === 0) {
             e = e.childNodes[0];
-
             if (e === undefined || !e.getBoundingClientRect) {
               return;
             }
           }
         }
-
         var elemTop = clientRect.top;
         var elemBottom = elemTop + clientRect.height;
-
         if (elemTop < 0) {
           window.scrollTo(0, window.pageYOffset + clientRect.top - reasonableBuffer);
         } else if (elemBottom > window.innerHeight) {
           var maxY = window.pageYOffset + clientRect.top - reasonableBuffer;
-
           if (maxY - window.pageYOffset > maxScrollDisplacement) {
             maxY = window.pageYOffset + maxScrollDisplacement;
           }
-
           var targetY = window.pageYOffset - (window.innerHeight - elemBottom);
-
           if (targetY > maxY) {
             targetY = maxY;
           }
-
           window.scrollTo(0, targetY);
         }
       }
-    }, {
-      key: "menuContainerIsBody",
-      get: function get() {
-        return this.tribute.menuContainer === document.body || !this.tribute.menuContainer;
-      }
     }]);
-
-    return TributeRange;
   }();
 
   // Thanks to https://github.com/mattyork/fuzzy
   var TributeSearch = /*#__PURE__*/function () {
     function TributeSearch(tribute) {
       _classCallCheck(this, TributeSearch);
-
       this.tribute = tribute;
       this.tribute.search = this;
     }
-
-    _createClass(TributeSearch, [{
+    return _createClass(TributeSearch, [{
       key: "simpleFilter",
       value: function simpleFilter(pattern, array) {
         var _this = this;
-
         return array.filter(function (string) {
           return _this.test(pattern, string);
         });
@@ -1158,24 +1114,20 @@
       value: function match(pattern, string, opts) {
         opts = opts || {};
         var len = string.length,
-            pre = opts.pre || '',
-            post = opts.post || '',
-            compareString = opts.caseSensitive && string || string.toLowerCase();
-
+          pre = opts.pre || '',
+          post = opts.post || '',
+          compareString = opts.caseSensitive && string || string.toLowerCase();
         if (opts.skip) {
           return {
             rendered: string,
             score: 0
           };
         }
-
         pattern = opts.caseSensitive && pattern || pattern.toLowerCase();
         var patternCache = this.traverse(compareString, pattern, 0, 0, []);
-
         if (!patternCache) {
           return null;
         }
-
         return {
           rendered: this.render(string, patternCache.cache, pre, post),
           score: patternCache.score
@@ -1188,40 +1140,35 @@
           // if the pattern search at end
           pattern = pattern.split(this.tribute.autocompleteSeparator).splice(-1)[0];
         }
-
         if (pattern.length === patternIndex) {
           // calculate score and copy the cache containing the indices where it's found
           return {
             score: this.calculateScore(patternCache),
             cache: patternCache.slice()
           };
-        } // if string at end or remaining pattern > remaining string
+        }
 
-
+        // if string at end or remaining pattern > remaining string
         if (string.length === stringIndex || pattern.length - patternIndex > string.length - stringIndex) {
           return undefined;
         }
-
         var c = pattern[patternIndex];
         var index = string.indexOf(c, stringIndex);
         var best, temp;
-
         while (index > -1) {
           patternCache.push(index);
           temp = this.traverse(string, pattern, index + 1, patternIndex + 1, patternCache);
-          patternCache.pop(); // if downstream traversal failed, return best answer so far
+          patternCache.pop();
 
+          // if downstream traversal failed, return best answer so far
           if (!temp) {
             return best;
           }
-
           if (!best || best.score < temp.score) {
             best = temp;
           }
-
           index = string.indexOf(c, index + 1);
         }
-
         return best;
       }
     }, {
@@ -1237,7 +1184,6 @@
               temp = 1;
             }
           }
-
           score += temp;
         });
         return score;
@@ -1255,22 +1201,17 @@
       key: "filter",
       value: function filter(pattern, arr, opts) {
         var _this2 = this;
-
         opts = opts || {};
         return arr.reduce(function (prev, element, idx, arr) {
           var str = element;
-
           if (opts.extract) {
             str = opts.extract(element);
-
             if (!str) {
               // take care of undefineds / nulls / etc.
               str = '';
             }
           }
-
           var rendered = _this2.match(pattern, str, opts);
-
           if (rendered != null) {
             prev[prev.length] = {
               string: rendered.rendered,
@@ -1279,7 +1220,6 @@
               original: element
             };
           }
-
           return prev;
         }, []).sort(function (a, b) {
           var compare = b.score - a.score;
@@ -1288,65 +1228,60 @@
         });
       }
     }]);
-
-    return TributeSearch;
   }();
 
   var Tribute = /*#__PURE__*/function () {
     function Tribute(_ref) {
       var _this = this;
-
       var _ref$values = _ref.values,
-          values = _ref$values === void 0 ? null : _ref$values,
-          _ref$loadingItemTempl = _ref.loadingItemTemplate,
-          loadingItemTemplate = _ref$loadingItemTempl === void 0 ? null : _ref$loadingItemTempl,
-          _ref$iframe = _ref.iframe,
-          iframe = _ref$iframe === void 0 ? null : _ref$iframe,
-          _ref$selectClass = _ref.selectClass,
-          selectClass = _ref$selectClass === void 0 ? "highlight" : _ref$selectClass,
-          _ref$containerClass = _ref.containerClass,
-          containerClass = _ref$containerClass === void 0 ? "tribute-container" : _ref$containerClass,
-          _ref$itemClass = _ref.itemClass,
-          itemClass = _ref$itemClass === void 0 ? "" : _ref$itemClass,
-          _ref$trigger = _ref.trigger,
-          trigger = _ref$trigger === void 0 ? "@" : _ref$trigger,
-          _ref$autocompleteMode = _ref.autocompleteMode,
-          autocompleteMode = _ref$autocompleteMode === void 0 ? false : _ref$autocompleteMode,
-          _ref$autocompleteSepa = _ref.autocompleteSeparator,
-          autocompleteSeparator = _ref$autocompleteSepa === void 0 ? null : _ref$autocompleteSepa,
-          _ref$selectTemplate = _ref.selectTemplate,
-          selectTemplate = _ref$selectTemplate === void 0 ? null : _ref$selectTemplate,
-          _ref$menuItemTemplate = _ref.menuItemTemplate,
-          menuItemTemplate = _ref$menuItemTemplate === void 0 ? null : _ref$menuItemTemplate,
-          _ref$lookup = _ref.lookup,
-          lookup = _ref$lookup === void 0 ? "key" : _ref$lookup,
-          _ref$fillAttr = _ref.fillAttr,
-          fillAttr = _ref$fillAttr === void 0 ? "value" : _ref$fillAttr,
-          _ref$collection = _ref.collection,
-          collection = _ref$collection === void 0 ? null : _ref$collection,
-          _ref$menuContainer = _ref.menuContainer,
-          menuContainer = _ref$menuContainer === void 0 ? null : _ref$menuContainer,
-          _ref$noMatchTemplate = _ref.noMatchTemplate,
-          noMatchTemplate = _ref$noMatchTemplate === void 0 ? null : _ref$noMatchTemplate,
-          _ref$requireLeadingSp = _ref.requireLeadingSpace,
-          requireLeadingSpace = _ref$requireLeadingSp === void 0 ? true : _ref$requireLeadingSp,
-          _ref$allowSpaces = _ref.allowSpaces,
-          allowSpaces = _ref$allowSpaces === void 0 ? false : _ref$allowSpaces,
-          _ref$replaceTextSuffi = _ref.replaceTextSuffix,
-          replaceTextSuffix = _ref$replaceTextSuffi === void 0 ? null : _ref$replaceTextSuffi,
-          _ref$positionMenu = _ref.positionMenu,
-          positionMenu = _ref$positionMenu === void 0 ? true : _ref$positionMenu,
-          _ref$spaceSelectsMatc = _ref.spaceSelectsMatch,
-          spaceSelectsMatch = _ref$spaceSelectsMatc === void 0 ? false : _ref$spaceSelectsMatc,
-          _ref$searchOpts = _ref.searchOpts,
-          searchOpts = _ref$searchOpts === void 0 ? {} : _ref$searchOpts,
-          _ref$menuItemLimit = _ref.menuItemLimit,
-          menuItemLimit = _ref$menuItemLimit === void 0 ? null : _ref$menuItemLimit,
-          _ref$menuShowMinLengt = _ref.menuShowMinLength,
-          menuShowMinLength = _ref$menuShowMinLengt === void 0 ? 0 : _ref$menuShowMinLengt;
-
+        values = _ref$values === void 0 ? null : _ref$values,
+        _ref$loadingItemTempl = _ref.loadingItemTemplate,
+        loadingItemTemplate = _ref$loadingItemTempl === void 0 ? null : _ref$loadingItemTempl,
+        _ref$iframe = _ref.iframe,
+        iframe = _ref$iframe === void 0 ? null : _ref$iframe,
+        _ref$selectClass = _ref.selectClass,
+        selectClass = _ref$selectClass === void 0 ? "highlight" : _ref$selectClass,
+        _ref$containerClass = _ref.containerClass,
+        containerClass = _ref$containerClass === void 0 ? "tribute-container" : _ref$containerClass,
+        _ref$itemClass = _ref.itemClass,
+        itemClass = _ref$itemClass === void 0 ? "" : _ref$itemClass,
+        _ref$trigger = _ref.trigger,
+        trigger = _ref$trigger === void 0 ? "@" : _ref$trigger,
+        _ref$autocompleteMode = _ref.autocompleteMode,
+        autocompleteMode = _ref$autocompleteMode === void 0 ? false : _ref$autocompleteMode,
+        _ref$autocompleteSepa = _ref.autocompleteSeparator,
+        autocompleteSeparator = _ref$autocompleteSepa === void 0 ? null : _ref$autocompleteSepa,
+        _ref$selectTemplate = _ref.selectTemplate,
+        selectTemplate = _ref$selectTemplate === void 0 ? null : _ref$selectTemplate,
+        _ref$menuItemTemplate = _ref.menuItemTemplate,
+        menuItemTemplate = _ref$menuItemTemplate === void 0 ? null : _ref$menuItemTemplate,
+        _ref$lookup = _ref.lookup,
+        lookup = _ref$lookup === void 0 ? "key" : _ref$lookup,
+        _ref$fillAttr = _ref.fillAttr,
+        fillAttr = _ref$fillAttr === void 0 ? "value" : _ref$fillAttr,
+        _ref$collection = _ref.collection,
+        collection = _ref$collection === void 0 ? null : _ref$collection,
+        _ref$menuContainer = _ref.menuContainer,
+        menuContainer = _ref$menuContainer === void 0 ? null : _ref$menuContainer,
+        _ref$noMatchTemplate = _ref.noMatchTemplate,
+        noMatchTemplate = _ref$noMatchTemplate === void 0 ? null : _ref$noMatchTemplate,
+        _ref$requireLeadingSp = _ref.requireLeadingSpace,
+        requireLeadingSpace = _ref$requireLeadingSp === void 0 ? true : _ref$requireLeadingSp,
+        _ref$allowSpaces = _ref.allowSpaces,
+        allowSpaces = _ref$allowSpaces === void 0 ? false : _ref$allowSpaces,
+        _ref$replaceTextSuffi = _ref.replaceTextSuffix,
+        replaceTextSuffix = _ref$replaceTextSuffi === void 0 ? null : _ref$replaceTextSuffi,
+        _ref$positionMenu = _ref.positionMenu,
+        positionMenu = _ref$positionMenu === void 0 ? true : _ref$positionMenu,
+        _ref$spaceSelectsMatc = _ref.spaceSelectsMatch,
+        spaceSelectsMatch = _ref$spaceSelectsMatc === void 0 ? false : _ref$spaceSelectsMatc,
+        _ref$searchOpts = _ref.searchOpts,
+        searchOpts = _ref$searchOpts === void 0 ? {} : _ref$searchOpts,
+        _ref$menuItemLimit = _ref.menuItemLimit,
+        menuItemLimit = _ref$menuItemLimit === void 0 ? null : _ref$menuItemLimit,
+        _ref$menuShowMinLengt = _ref.menuShowMinLength,
+        menuShowMinLength = _ref$menuShowMinLengt === void 0 ? 0 : _ref$menuShowMinLengt;
       _classCallCheck(this, Tribute);
-
       this.autocompleteMode = autocompleteMode;
       this.autocompleteSeparator = autocompleteSeparator;
       this.menuSelected = 0;
@@ -1357,14 +1292,13 @@
       this.allowSpaces = allowSpaces;
       this.replaceTextSuffix = replaceTextSuffix;
       this.positionMenu = positionMenu;
+      // 是否有尾随空格
       this.hasTrailingSpace = false;
       this.spaceSelectsMatch = spaceSelectsMatch;
-
       if (this.autocompleteMode) {
         trigger = "";
         allowSpaces = false;
       }
-
       if (values) {
         this.collection = [{
           // symbol that starts the lookup
@@ -1387,11 +1321,9 @@
               if (t.trim() === "") return null;
               return t;
             }
-
             if (typeof t === "function") {
               return t.bind(_this);
             }
-
             return noMatchTemplate || function () {
               return "<li>No Match Found!</li>";
             }.bind(_this);
@@ -1426,11 +1358,9 @@
                 if (t.trim() === "") return null;
                 return t;
               }
-
               if (typeof t === "function") {
                 return t.bind(_this);
               }
-
               return noMatchTemplate || function () {
                 return "<li>No Match Found!</li>";
               }.bind(_this);
@@ -1448,14 +1378,26 @@
       } else {
         throw new Error("[Tribute] No collection specified.");
       }
-
       new TributeRange(this);
       new TributeEvents(this);
       new TributeMenuEvents(this);
       new TributeSearch(this);
     }
-
-    _createClass(Tribute, [{
+    return _createClass(Tribute, [{
+      key: "isActive",
+      get: function get() {
+        return this._isActive;
+      },
+      set: function set(val) {
+        if (this._isActive != val) {
+          this._isActive = val;
+          if (this.current.element) {
+            var noMatchEvent = new CustomEvent("tribute-active-".concat(val));
+            this.current.element.dispatchEvent(noMatchEvent);
+          }
+        }
+      }
+    }, {
       key: "triggers",
       value: function triggers() {
         return this.collection.map(function (config) {
@@ -1467,17 +1409,16 @@
       value: function attach(el) {
         if (!el) {
           throw new Error("[Tribute] Must pass in a DOM node or NodeList.");
-        } // Check if it is a jQuery collection
+        }
 
-
+        // Check if it is a jQuery collection
         if (typeof jQuery !== "undefined" && el instanceof jQuery) {
           el = el.get();
-        } // Is el an Array/Array-like object?
+        }
 
-
+        // Is el an Array/Array-like object?
         if (el.constructor === NodeList || el.constructor === HTMLCollection || el.constructor === Array) {
           var length = el.length;
-
           for (var i = 0; i < length; ++i) {
             this._attach(el[i]);
           }
@@ -1491,7 +1432,6 @@
         if (el.hasAttribute("data-tribute")) {
           console.warn("Tribute was already bound to " + el.nodeName);
         }
-
         this.ensureEditable(el);
         this.events.bind(el);
         el.setAttribute("data-tribute", true);
@@ -1500,10 +1440,8 @@
       key: "ensureEditable",
       value: function ensureEditable(element) {
         if (Tribute.inputTypes().indexOf(element.nodeName) === -1) {
-          if (element.contentEditable) {
-            element.contentEditable = true;
-          } else {
-            throw new Error("[Tribute] Cannot bind to " + element.nodeName);
+          if (!element.contentEditable) {
+            throw new Error("[Tribute] Cannot bind to " + element.nodeName + ", not contentEditable");
           }
         }
       }
@@ -1511,47 +1449,41 @@
       key: "createMenu",
       value: function createMenu(containerClass) {
         var wrapper = this.range.getDocument().createElement("div"),
-            ul = this.range.getDocument().createElement("ul");
+          ul = this.range.getDocument().createElement("ul");
         wrapper.className = containerClass;
         wrapper.appendChild(ul);
-
         if (this.menuContainer) {
           return this.menuContainer.appendChild(wrapper);
         }
-
         return this.range.getDocument().body.appendChild(wrapper);
       }
     }, {
       key: "showMenuFor",
       value: function showMenuFor(element, scrollTo) {
         var _this2 = this;
-
         // Only proceed if menu isn't already shown for the current element & mentionText
         if (this.isActive && this.current.element === element && this.current.mentionText === this.currentMentionTextSnapshot) {
           return;
         }
+        this.currentMentionTextSnapshot = this.current.mentionText;
 
-        this.currentMentionTextSnapshot = this.current.mentionText; // create the menu if it doesn't exist.
-
+        // create the menu if it doesn't exist.
         if (!this.menu) {
+          // 构建menu元素
           this.menu = this.createMenu(this.current.collection.containerClass);
           element.tributeMenu = this.menu;
           this.menuEvents.bind(this.menu);
         }
-
         this.isActive = true;
         this.menuSelected = 0;
-
         if (!this.current.mentionText) {
           this.current.mentionText = "";
         }
-
         var processValues = function processValues(values) {
           // Tribute may not be active any more by the time the value callback returns
           if (!_this2.isActive) {
             return;
           }
-
           var items = _this2.search.filter(_this2.current.mentionText, values, {
             pre: _this2.current.collection.searchOpts.pre || "<span>",
             post: _this2.current.collection.searchOpts.post || "</span>",
@@ -1566,71 +1498,54 @@
               }
             }
           });
-
           if (_this2.current.collection.menuItemLimit) {
             items = items.slice(0, _this2.current.collection.menuItemLimit);
           }
-
           _this2.current.filteredItems = items;
-
           var ul = _this2.menu.querySelector("ul");
-
           if (!items.length) {
             var noMatchEvent = new CustomEvent("tribute-no-match", {
               detail: _this2.menu
             });
-
             _this2.current.element.dispatchEvent(noMatchEvent);
-
             if (typeof _this2.current.collection.noMatchTemplate === "function" && !_this2.current.collection.noMatchTemplate() || !_this2.current.collection.noMatchTemplate) {
               _this2.hideMenu();
             } else {
               typeof _this2.current.collection.noMatchTemplate === "function" ? ul.innerHTML = _this2.current.collection.noMatchTemplate() : ul.innerHTML = _this2.current.collection.noMatchTemplate;
-
               _this2.range.positionMenuAtCaret(scrollTo);
             }
-
             return;
           }
-
           ul.innerHTML = "";
-
           var fragment = _this2.range.getDocument().createDocumentFragment();
-
           items.forEach(function (item, index) {
             var li = _this2.range.getDocument().createElement("li");
-
             li.setAttribute("data-index", index);
             li.className = _this2.current.collection.itemClass;
             li.addEventListener("mousemove", function (e) {
               var _this2$_findLiTarget = _this2._findLiTarget(e.target),
-                  _this2$_findLiTarget2 = _slicedToArray(_this2$_findLiTarget, 2),
-                  li = _this2$_findLiTarget2[0],
-                  index = _this2$_findLiTarget2[1];
-
+                _this2$_findLiTarget2 = _slicedToArray(_this2$_findLiTarget, 2),
+                li = _this2$_findLiTarget2[0],
+                index = _this2$_findLiTarget2[1];
               if (e.movementY !== 0) {
                 _this2.events.setActiveLi(index);
               }
             });
-
             if (_this2.menuSelected === index) {
               li.classList.add(_this2.current.collection.selectClass);
             }
-
             li.innerHTML = _this2.current.collection.menuItemTemplate(item);
             fragment.appendChild(li);
           });
           ul.appendChild(fragment);
-
+          // 渲染菜单
           _this2.range.positionMenuAtCaret(scrollTo);
         };
-
         if (typeof this.current.collection.values === "function") {
           if (this.current.collection.loadingItemTemplate) {
             this.menu.querySelector("ul").innerHTML = this.current.collection.loadingItemTemplate;
             this.range.positionMenuAtCaret(scrollTo);
           }
-
           this.current.collection.values(this.current.mentionText, processValues);
         } else {
           processValues(this.current.collection.values);
@@ -1649,19 +1564,18 @@
         if (element !== document.activeElement) {
           this.placeCaretAtEnd(element);
         }
-
         this.current.collection = this.collection[collectionIndex || 0];
         this.current.externalTrigger = true;
         this.current.element = element;
         if (element.isContentEditable) this.insertTextAtCursor(this.current.collection.trigger);else this.insertAtCaret(element, this.current.collection.trigger);
         this.showMenuFor(element);
-      } // TODO: make sure this works for inputs/textareas
+      }
 
+      // TODO: make sure this works for inputs/textareas
     }, {
       key: "placeCaretAtEnd",
       value: function placeCaretAtEnd(el) {
         el.focus();
-
         if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
           var range = document.createRange();
           range.selectNodeContents(el);
@@ -1675,8 +1589,9 @@
           textRange.collapse(false);
           textRange.select();
         }
-      } // for contenteditable
+      }
 
+      // for contenteditable
     }, {
       key: "insertTextAtCursor",
       value: function insertTextAtCursor(text) {
@@ -1690,8 +1605,9 @@
         range.collapse(false);
         sel.removeAllRanges();
         sel.addRange(range);
-      } // for regular inputs
+      }
 
+      // for regular inputs
     }, {
       key: "insertAtCaret",
       value: function insertAtCaret(textarea, text) {
@@ -1747,7 +1663,6 @@
         var index = parseInt(collectionIndex);
         if (typeof index !== "number") throw new Error("please provide an index for the collection to update.");
         var collection = this.collection[index];
-
         this._append(collection, newValues, replace);
       }
     }, {
@@ -1764,17 +1679,16 @@
       value: function detach(el) {
         if (!el) {
           throw new Error("[Tribute] Must pass in a DOM node or NodeList.");
-        } // Check if it is a jQuery collection
+        }
 
-
+        // Check if it is a jQuery collection
         if (typeof jQuery !== "undefined" && el instanceof jQuery) {
           el = el.get();
-        } // Is el an Array/Array-like object?
+        }
 
-
+        // Is el an Array/Array-like object?
         if (el.constructor === NodeList || el.constructor === HTMLCollection || el.constructor === Array) {
           var length = el.length;
-
           for (var i = 0; i < length; ++i) {
             this._detach(el[i]);
           }
@@ -1786,46 +1700,25 @@
       key: "_detach",
       value: function _detach(el) {
         var _this3 = this;
-
         this.events.unbind(el);
-
         if (el.tributeMenu) {
           this.menuEvents.unbind(el.tributeMenu);
         }
-
         setTimeout(function () {
           el.removeAttribute("data-tribute");
           _this3.isActive = false;
-
           if (el.tributeMenu) {
             el.tributeMenu.remove();
           }
         });
       }
-    }, {
-      key: "isActive",
-      get: function get() {
-        return this._isActive;
-      },
-      set: function set(val) {
-        if (this._isActive != val) {
-          this._isActive = val;
-
-          if (this.current.element) {
-            var noMatchEvent = new CustomEvent("tribute-active-".concat(val));
-            this.current.element.dispatchEvent(noMatchEvent);
-          }
-        }
-      }
     }], [{
       key: "defaultSelectTemplate",
       value: function defaultSelectTemplate(item) {
         if (typeof item === "undefined") return "".concat(this.current.collection.trigger).concat(this.current.mentionText);
-
         if (this.range.isContentEditable(this.current.element)) {
           return '<span class="tribute-mention">' + (this.current.collection.trigger + item.original[this.current.collection.fillAttr]) + "</span>";
         }
-
         return this.current.collection.trigger + item.original[this.current.collection.fillAttr];
       }
     }, {
@@ -1839,8 +1732,6 @@
         return ["TEXTAREA", "INPUT"];
       }
     }]);
-
-    return Tribute;
   }();
 
   /**

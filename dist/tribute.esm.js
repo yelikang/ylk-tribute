@@ -1,27 +1,50 @@
 if (!Array.prototype.find) {
-    Array.prototype.find = function(predicate) {
-        if (this === null) {
-            throw new TypeError('Array.prototype.find called on null or undefined')
-        }
-        if (typeof predicate !== 'function') {
-            throw new TypeError('predicate must be a function')
-        }
-        var list = Object(this);
-        var length = list.length >>> 0;
-        var thisArg = arguments[1];
-        var value;
+  Object.defineProperty(Array.prototype, 'find', {
+    value: function(predicate) {
+      // 1. Let O be ? ToObject(this value).
+      if (this == null) {
+        throw TypeError('"this" is null or not defined');
+      }
 
-        for (var i = 0; i < length; i++) {
-            value = list[i];
-            if (predicate.call(thisArg, value, i, list)) {
-                return value
-            }
+      var o = Object(this);
+
+      // 2. Let len be ? ToLength(? Get(O, "length")).
+      var len = o.length >>> 0;
+
+      // 3. If IsCallable(predicate) is false, throw a TypeError exception.
+      if (typeof predicate !== 'function') {
+        throw TypeError('predicate must be a function');
+      }
+
+      // 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      var thisArg = arguments[1];
+
+      // 5. Let k be 0.
+      var k = 0;
+
+      // 6. Repeat, while k < len
+      while (k < len) {
+        // a. Let Pk be ! ToString(k).
+        // b. Let kValue be ? Get(O, Pk).
+        // c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
+        // d. If testResult is true, return kValue.
+        var kValue = o[k];
+        if (predicate.call(thisArg, kValue, k, o)) {
+          return kValue;
         }
-        return undefined
-    };
+        // e. Increase k by 1.
+        k++;
+      }
+
+      // 7. Return undefined.
+      return undefined;
+    },
+    configurable: true,
+    writable: true
+  });
 }
 
-if (window && typeof window.CustomEvent !== "function") {
+if (typeof window !== 'undefined' && typeof window.CustomEvent !== "function") {
   function CustomEvent$1(event, params) {
     params = params || {
       bubbles: false,
@@ -84,15 +107,15 @@ class TributeEvents {
     element.boundKeyup = this.keyup.bind(element, this);
     element.boundInput = this.input.bind(element, this);
 
-    element.addEventListener("keydown", element.boundKeydown, false);
-    element.addEventListener("keyup", element.boundKeyup, false);
-    element.addEventListener("input", element.boundInput, false);
+    element.addEventListener("keydown", element.boundKeydown, true);
+    element.addEventListener("keyup", element.boundKeyup, true);
+    element.addEventListener("input", element.boundInput, true);
   }
 
   unbind(element) {
-    element.removeEventListener("keydown", element.boundKeydown, false);
-    element.removeEventListener("keyup", element.boundKeyup, false);
-    element.removeEventListener("input", element.boundInput, false);
+    element.removeEventListener("keydown", element.boundKeydown, true);
+    element.removeEventListener("keyup", element.boundKeyup, true);
+    element.removeEventListener("input", element.boundInput, true);
 
     delete element.boundKeydown;
     delete element.boundKeyup;
@@ -123,7 +146,9 @@ class TributeEvents {
 
   click(instance, event) {
     let tribute = instance.tribute;
+    // 菜单点击事件
     if (tribute.menu && tribute.menu.contains(event.target)) {
+      // 如果点击的是菜单中的元素，就选中点击的选项
       let li = event.target;
       event.preventDefault();
       event.stopPropagation();
@@ -138,6 +163,7 @@ class TributeEvents {
 
       // TODO: should fire with externalTrigger and target is outside of menu
     } else if (tribute.current.element && !tribute.current.externalTrigger) {
+      // 如果点击的是菜单外的元素，就隐藏菜单
       tribute.current.externalTrigger = false;
       setTimeout(() => tribute.hideMenu());
     }
@@ -149,7 +175,7 @@ class TributeEvents {
     }
     instance.updateSelection(this);
 
-    if (event.keyCode === 27) return;
+    if (!event.keyCode || event.keyCode === 27) return;
 
     if (!instance.tribute.allowSpaces && instance.tribute.hasTrailingSpace) {
       instance.tribute.hasTrailingSpace = false;
@@ -171,6 +197,7 @@ class TributeEvents {
         });
 
         if (typeof trigger !== "undefined") {
+          // 触发关键字，设置trigger
           instance.callbacks().triggerChar(event, this, trigger);
         }
       }
@@ -578,6 +605,14 @@ class TributeRange {
         targetElement.focus();
     }
 
+    /**
+     * 替换触发文本
+     * @param {*} text 
+     * @param {*} requireLeadingSpace 
+     * @param {*} hasTrailingSpace 
+     * @param {*} originalEvent 
+     * @param {*} item 
+     */
     replaceTriggerText(text, requireLeadingSpace, hasTrailingSpace, originalEvent, item) {
         let info = this.getTriggerInfo(true, hasTrailingSpace, requireLeadingSpace, this.tribute.allowSpaces, this.tribute.autocompleteMode);
 
@@ -599,7 +634,7 @@ class TributeRange {
                     : ' ';
                 text += textSuffix;
                 let startPos = info.mentionPosition;
-                let endPos = info.mentionPosition + info.mentionText.length + textSuffix.length;
+                let endPos = info.mentionPosition + info.mentionText.length + (textSuffix === '' ? 1 : textSuffix.length);
                 if (!this.tribute.autocompleteMode) {
                     endPos += info.mentionTriggerChar.length - 1;
                 }
@@ -609,6 +644,7 @@ class TributeRange {
                 myField.selectionEnd = startPos + text.length;
             } else {
                 // add a space to the end of the pasted text
+                // 文本后端添加空格
                 let textSuffix = typeof this.tribute.replaceTextSuffix == 'string'
                     ? this.tribute.replaceTextSuffix
                     : '\xA0';
@@ -628,13 +664,16 @@ class TributeRange {
     pasteHtml(html, startPos, endPos) {
         let range, sel;
         sel = this.getWindowSelection();
+        // 创建新选区，设置起始、结束位置；删除选区内容
         range = this.getDocument().createRange();
         range.setStart(sel.anchorNode, startPos);
         range.setEnd(sel.anchorNode, endPos);
         range.deleteContents();
 
+        // 创建一个div，设置innerHTML为html
         let el = this.getDocument().createElement('div');
         el.innerHTML = html;
+        // 创建一个文档片段，用于存储html内容
         let frag = this.getDocument().createDocumentFragment(),
             node, lastNode;
         while ((node = el.firstChild)) {
@@ -644,8 +683,11 @@ class TributeRange {
 
         // Preserve the selection
         if (lastNode) {
+            // 克隆选区
             range = range.cloneRange();
+            // 设置选区结束位置
             range.setStartAfter(lastNode);
+            // 折叠选区
             range.collapse(true);
             sel.removeAllRanges();
             sel.addRange(range);
@@ -676,6 +718,7 @@ class TributeRange {
 
     getContentEditableSelectedPath(ctx) {
         let sel = this.getWindowSelection();
+        // 当前选区所在的锚点节点
         let selected = sel.anchorNode;
         let path = [];
         let offset;
@@ -683,7 +726,9 @@ class TributeRange {
         if (selected != null) {
             let i;
             let ce = selected.contentEditable;
+            // 递归向上，一直找到contentEditable为true的节点(父节点)
             while (selected !== null && ce !== 'true') {
+                // 获取当前节点在父节点中的位置
                 i = this.getNodePositionInParent(selected);
                 path.push(i);
                 selected = selected.parentNode;
@@ -694,6 +739,7 @@ class TributeRange {
             path.reverse();
 
             // getRangeAt may not exist, need alternative
+            // 光标在当前选区的偏移量
             offset = sel.getRangeAt(0).startOffset;
 
             return {
@@ -704,6 +750,10 @@ class TributeRange {
         }
     }
 
+    /**
+     * 获取当前光标位置之前的文本
+     * @returns 
+     */
     getTextPrecedingCurrentSelection() {
         let context = this.tribute.current,
             text = '';
@@ -734,17 +784,25 @@ class TributeRange {
     }
 
     getLastWordInText(text) {
-        text = text.replace(/\u00A0/g, ' '); // https://stackoverflow.com/questions/29850407/how-do-i-replace-unicode-character-u00a0-with-a-space-in-javascript
         var wordsArray;
         if (this.tribute.autocompleteSeparator) {
             wordsArray = text.split(this.tribute.autocompleteSeparator);
         } else {
             wordsArray = text.split(/\s+/);
         }
-        var worldsCount = wordsArray.length - 1;
-        return wordsArray[worldsCount].trim();
+        var wordsCount = wordsArray.length - 1;
+        return wordsArray[wordsCount];
     }
 
+    /**
+     * 获取触发信息
+     * @param {*} menuAlreadyActive 菜单是否已经激活
+     * @param {*} hasTrailingSpace 是否有尾随空格
+     * @param {*} requireLeadingSpace 是否需要前导空格
+     * @param {*} allowSpaces 是否允许空格
+     * @param {*} isAutocomplete 是否自动补全
+     * @returns 
+     */
     getTriggerInfo(menuAlreadyActive, hasTrailingSpace, requireLeadingSpace, allowSpaces, isAutocomplete) {
         let ctx = this.tribute.current;
         let selected, path, offset;
@@ -795,7 +853,7 @@ class TributeRange {
                 (
                     mostRecentTriggerCharPos === 0 ||
                     !requireLeadingSpace ||
-                    /[\xA0\s]/g.test(
+                    /\s/.test(
                         effectiveRange.substring(
                             mostRecentTriggerCharPos - 1,
                             mostRecentTriggerCharPos)
@@ -823,6 +881,7 @@ class TributeRange {
                 if (!leadingSpace && (menuAlreadyActive || !(regex.test(currentTriggerSnippet)))) {
                     return {
                         mentionPosition: mostRecentTriggerCharPos,
+                        // 搜索文案
                         mentionText: currentTriggerSnippet,
                         mentionSelectedElement: selected,
                         mentionSelectedPath: path,
@@ -882,6 +941,10 @@ class TributeRange {
             left: menuLeft < Math.floor(windowLeft)
         }
     }
+    /**
+     * 计算菜单的尺寸（先渲染在页面，获取到元素的宽高，然后隐藏）
+     * @returns 
+     */
 
     getMenuDimensions() {
         // Width of the menu depends of its contents and position
@@ -997,20 +1060,28 @@ class TributeRange {
         return this.getFixedCoordinatesRelativeToRect(rect);
     }
 
+    /**
+     * 获取菜单坐标位置
+     * @param {*} rect 
+     * @returns 
+     */
     getFixedCoordinatesRelativeToRect(rect) {
         let coordinates = {
             position: 'fixed',
             left: rect.left,
             top: rect.top + rect.height
         };
-
+        // 获取菜单的尺寸
         let menuDimensions = this.getMenuDimensions();
 
+        // 获取当前元素上下可用空间
         var availableSpaceOnTop = rect.top;
         var availableSpaceOnBottom = window.innerHeight - (rect.top + rect.height);
 
         //check to see where's the right place to put the menu vertically
+        // 下方空间不够渲染（就使用bottom定位）
         if (availableSpaceOnBottom < menuDimensions.height) {
+          // 上方空间足够渲染  || 上方空间大于下方空间
           if (availableSpaceOnTop >= menuDimensions.height || availableSpaceOnTop > availableSpaceOnBottom) {
             coordinates.top = 'auto';
             coordinates.bottom = window.innerHeight - rect.top;
@@ -1018,12 +1089,15 @@ class TributeRange {
               coordinates.maxHeight = availableSpaceOnTop;
             }
           } else {
+            // 上方空间不够渲染，并且上方空间小于下方空间；就采用top定位，渲染在元素下方
             if (availableSpaceOnTop < menuDimensions.height) {
+                // 最大高度不能超过下方空间
               coordinates.maxHeight = availableSpaceOnBottom;
             }
           }
         }
 
+        // 获取当前元素左右可用空间
         var availableSpaceOnLeft = rect.left;
         var availableSpaceOnRight = window.innerWidth - rect.left;
 
@@ -1275,6 +1349,7 @@ class Tribute {
     this.allowSpaces = allowSpaces;
     this.replaceTextSuffix = replaceTextSuffix;
     this.positionMenu = positionMenu;
+    // 是否有尾随空格
     this.hasTrailingSpace = false;
     this.spaceSelectsMatch = spaceSelectsMatch;
 
@@ -1488,10 +1563,8 @@ class Tribute {
 
   ensureEditable(element) {
     if (Tribute.inputTypes().indexOf(element.nodeName) === -1) {
-      if (element.contentEditable) {
-        element.contentEditable = true;
-      } else {
-        throw new Error("[Tribute] Cannot bind to " + element.nodeName);
+      if (!element.contentEditable) {
+        throw new Error("[Tribute] Cannot bind to " + element.nodeName + ", not contentEditable");
       }
     }
   }
@@ -1522,6 +1595,7 @@ class Tribute {
 
     // create the menu if it doesn't exist.
     if (!this.menu) {
+      // 构建menu元素
       this.menu = this.createMenu(this.current.collection.containerClass);
       element.tributeMenu = this.menu;
       this.menuEvents.bind(this.menu);
@@ -1606,7 +1680,7 @@ class Tribute {
         fragment.appendChild(li);
       });
       ul.appendChild(fragment);
-
+      // 渲染菜单
       this.range.positionMenuAtCaret(scrollTo);
     };
 
