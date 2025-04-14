@@ -160,6 +160,12 @@ class TributeRange {
         }
     }
 
+    /**
+     * 替换选区内容
+     * @param {*} html 
+     * @param {*} startPos 
+     * @param {*} endPos 
+     */
     pasteHtml(html, startPos, endPos) {
         let range, sel
         sel = this.getWindowSelection()
@@ -278,7 +284,7 @@ class TributeRange {
                 }
             }
         }
-
+        console.log('pre text', text)
         return text
     }
 
